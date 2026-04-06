@@ -8,31 +8,46 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class SleepTrackerApp {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
+    static List<SleepAnalyzer> metrics = List.of(
+            new TotalSleepSession()
+    );
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Введите адрес файла: ");
-        Path log = Paths.get(sc.nextLine());
+        Path log;
         try {
-            if (!Files.exists(log) || Files.isDirectory(log)) { throw new FileNotFoundException(log.toString()); }
+            if (args.length < 1) {
+                throw new IllegalArgumentException("Не передан путь к файлу.");
+            }
+
+            String logStr = args[0];
+
+            if (logStr == null || logStr.trim().isEmpty()) {
+                throw new IllegalArgumentException("Путь к файлу пустой.");
+            }
+
+            log = Paths.get(logStr);
+
+            if (!Files.exists(log) || Files.isDirectory(log)) {
+                throw new FileNotFoundException(log.toString());
+            }
         } catch (FileNotFoundException exc) {
             System.err.printf("Файл с именем %s не найден.%n", exc.getMessage());
+            return;
+        } catch (Exception exc) {
+            System.err.println(exc.getMessage());
             return;
         }
 
         List<SleepingSession> sessions = parseLog(log);
 
-        List<SleepAnalyzer> metrics = List.of(
-                new TotalSleepSession()
-        );
-
-        metrics.forEach(func -> System.out.println(func.analyze(sessions)));
+        metrics.stream()
+                .map(func -> func.apply(sessions))
+                .map(SleepAnalysisResult::getFormatMessage)
+                .forEach(System.out::println);
 
     }
 
