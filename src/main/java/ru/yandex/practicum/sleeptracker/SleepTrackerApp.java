@@ -13,7 +13,11 @@ import java.util.stream.Stream;
 public class SleepTrackerApp {
     static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
     static List<SleepAnalyzer> metrics = List.of(
-            new TotalSleepSession()
+            new TotalSleepSession(),
+            new MaxSleepDuration(),
+            new MinSleepDuration(),
+            new AvgSleepDuration(),
+            new BadSleepSession()
     );
 
     public static void main(String[] args) {
