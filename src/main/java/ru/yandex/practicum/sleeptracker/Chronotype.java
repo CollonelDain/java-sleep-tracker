@@ -1,9 +1,9 @@
 package ru.yandex.practicum.sleeptracker;
 
 public enum Chronotype {
-    OWL ("СОВА"),
-    LARK ("ЖАВОРОНОК"),
-    PIGEON ("ГОЛУБЬ");
+    OWL("СОВА"),
+    LARK("ЖАВОРОНОК"),
+    PIGEON("ГОЛУБЬ");
 
     private final String ruTitle;
 
