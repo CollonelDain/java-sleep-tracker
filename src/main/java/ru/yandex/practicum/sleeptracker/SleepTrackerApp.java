@@ -17,7 +17,9 @@ public class SleepTrackerApp {
             new MaxSleepDuration(),
             new MinSleepDuration(),
             new AvgSleepDuration(),
-            new BadSleepSession()
+            new BadSleepSession(),
+            new SleeplessNights(),
+            new UserChronotype()
     );
 
     public static void main(String[] args) {
