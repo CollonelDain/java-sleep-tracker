@@ -47,7 +47,9 @@ public class UserChronotype implements SleepAnalyzer {
                 .filter(session -> isIntersectNight(session, night))
                 .toList();
 
-        if (nightSessions.isEmpty()) { return null; }
+        if (nightSessions.isEmpty()) {
+            return null;
+        }
 
         LocalDateTime startNight = nightSessions.stream()
                 .map(SleepingSession::getStart)
