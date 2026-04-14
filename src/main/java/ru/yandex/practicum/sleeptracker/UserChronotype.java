@@ -36,7 +36,6 @@ public class UserChronotype implements SleepAnalyzer {
         int lark = Collections.frequency(allNightsChronotype, Chronotype.LARK);
         int pigeon = Collections.frequency(allNightsChronotype, Chronotype.PIGEON);
 
-        System.out.println(owl + " " + lark + " " + pigeon);
         if (owl > lark && owl > pigeon) return new SleepAnalysisResult<>("Хронотип пользователя", Chronotype.OWL.getTitle());
         if (lark > owl && lark > pigeon) return new SleepAnalysisResult<>("Хронотип пользователя", Chronotype.LARK.getTitle());
         return new SleepAnalysisResult<>("Хронотип пользователя", Chronotype.PIGEON.getTitle());
